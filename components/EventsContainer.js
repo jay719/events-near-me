@@ -1,8 +1,8 @@
 
 import React, {useEffect} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-
+import EventCard from './EventCard.js'
 
 const apiKey = "QXdl7BXAndDxAk7CHW2yWArqSWGyHJRF"
 
@@ -21,17 +21,22 @@ export default function EventsContainer() {
         .then(response => response.json())
         .then(({_embedded}) => _embedded)
         .then(({events}) => dispatch({type: "SET_EVENTS", events: events})) // events = payload dispatch= hook
-        .then(console)
+        
         }, [])
 
-        const showEvents = () => events.map(event => {
-            return <Text>{event.name}</Text>
+        const showEvents = () => events.map((event, i) => {
+            return <EventCard 
+            // style={styles.card}
+            key={event.id}
+            event={event}
+            index={i+ 1}
+              /> //pass event as a prop, key stops the error
         })
 
 return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             {showEvents()}
-        </View>
+        </ScrollView>
 
     )
 }
@@ -39,6 +44,8 @@ return (
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
-    }
+        margin: 15,
+        
+    },
+    
 })

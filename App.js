@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import { createStore } from 'redux'
 import { Provider, useDispatch } from 'react-redux'
 import reducers from './reducers'
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView} from 'react-native'; //safe area makes sure content is under tool bar
 import  EventsContainer  from './components/EventsContainer.js'
 
 
@@ -14,9 +14,9 @@ export default function App() {
 
   return (
     <Provider store={store} >
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <EventsContainer />
-      </View>
+      </SafeAreaView>
     </Provider>
   );
 }
@@ -24,8 +24,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor:'hsl(303, 56%, 83%)',
+    
   },
 });
