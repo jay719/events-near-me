@@ -9,13 +9,13 @@ import {
 
 export default function EventCard({event, index}) {
 
-   const showAtractions = (event) => {
+    const showAtractions = (event) => {
         const attractions = event._embedded.attractions.map(attraction => {
-            return <Text style={styles.attraction}>🌟{attraction.name}</Text>
+            return <Text key={attraction.name} style={styles.attraction}>🌟{attraction.name}</Text>
         })
         return attractions
     }
-
+    
     return (
         <View style={styles.container}>
             <View style={styles.card}>
@@ -30,8 +30,13 @@ export default function EventCard({event, index}) {
             <View style={styles.infoContainer}>
                 {/* <Text style={styles.fact}>{event.info}</Text> */}
                 {/* <Text>{event.pleaseNote}</Text> */}
-                {/* <Text>{event.ticketLimit.info}</Text> */}
-               
+
+                {/* <Text>
+                    {
+                        event.ticketLimit ? event.ticketLimit.info : "no tickets bby"
+                    }
+                </Text> */}
+        
                 <View style={styles.attraction}>
                     <Text>Performing:</Text>
                     {showAtractions(event)}
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
     },headerContainer: {
         marginVertical: 21,
         paddingHorizontal: 30,
-        left: -20,
+        left: -3,
         // justifyContent: 'center',
         // marginHorizontal:20,
     },
@@ -87,7 +92,7 @@ elevation: 7,
         
         width:'50%',
         height: 150,
-        
+        left: -9,
         
     },
     names: {
@@ -127,13 +132,13 @@ elevation: 7,
         fontWeight:'600',
         color: 'hsl(303, 56%, 83%)',
         flexDirection: "column",
+        width:"50%",
     },
     button: {
         paddingVertical: 10,
         backgroundColor:'hsl(303, 56%, 83%)',
-        borderRadius: 6,
-        width: '90%',
-        left:20,
+        // borderRadius: 6,
+        
     },
     buttonText: {
         textAlign: 'center',
