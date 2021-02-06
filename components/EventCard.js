@@ -5,11 +5,30 @@ import {
     Image,
     StyleSheet, 
     TouchableOpacity,
+    Linking
 } from 'react-native'
+import { useDispatch, useSelector   } from 'react-redux';
+
+    
 
 export default function EventCard({event, index}) {
 
+    const dispatch = useDispatch()
+
+    const specificEvent = useSelector(state => state.eventLink)
+;
+    
+    // const handleClickedEvent = () => {
+        
+    //     // const link = event._links.self.href
+    //     // dispatch ({type:"SET_LINKS", link: link})
+    //     // console.log(specificEvent)
+    // }
+    
+    
+
     const showAtractions = (event) => {
+        console.log(event.url)
         const attractions = event._embedded.attractions.map(attraction => {
             return <Text key={attraction.name} style={styles.attraction}>🌟{attraction.name}</Text>
         })
@@ -43,7 +62,7 @@ export default function EventCard({event, index}) {
                 </View>
                 <Image style={styles.cardImage} source={{url: event.images[2].url}} />
             </View>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() =>  Linking.openURL(event.url)} >
                 <Text style={styles.buttonText}>Visit Event</Text>
             </TouchableOpacity>
             </View>
@@ -54,8 +73,8 @@ export default function EventCard({event, index}) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
-        
+        flex: 1,
+        margin: 15,
         
     },headerContainer: {
         marginVertical: 21,

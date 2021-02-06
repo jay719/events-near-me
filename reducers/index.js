@@ -9,10 +9,12 @@ const events = (state=[], action) =>{
             return state
     }
 }
-const users = (state=[], action) => {
+const eventLink = (state=["/discovery/v2/events/G5vzZ4g6yzQHe?locale=en-us"], action) => {
     switch(action.type){
-        case"SET_USERS":
-            return action.users
+        case"SET_LINKS":
+            return [...state, action.link]
+        case "VIEW_LINKS":
+            return [action.event]
         default:
             return state
     }
@@ -27,5 +29,6 @@ const users = (state=[], action) => {
 // }
 
 export default combineReducers({ //will combine state if i add more then events,
-    events,           // events(state): events(reduceer up top), gives STATE of events 
+    events, 
+    eventLink        // events(state): events(reduceer up top), gives STATE of events 
 })

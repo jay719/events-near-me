@@ -1,15 +1,15 @@
 
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, Text, View, ScrollView, TextInput, Button} from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TextInput, Button, StatusBar, Platform} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import EventCard from './EventCard.js';
+import EventCard from '../components/EventCard.js';
 // import {SearchTerm} from './SearchTerm.js';
 
 const apiKey = "QXdl7BXAndDxAk7CHW2yWArqSWGyHJRF"
 
 const apiURL = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&city=denver`
 
-export default function EventsContainer() {
+export default function EventsScreen() {
     const dispatch = useDispatch()
     const events = useSelector(state => state.events) //state.events is from root reducers
     const [searchValue, setSearchTerm] =  useState('') //
@@ -79,8 +79,9 @@ export default function EventsContainer() {
 
 return (
     <>
+        
         {/* <SearchTerm /> */}
-        <View style={{flexDirection: 'row', paddingBottom:20}}>
+        <View style={{flexDirection: 'row', paddingBottom:5}}>
             <TextInput
                 style={styles.search}
                 placeholder="Enter Location"
@@ -103,7 +104,9 @@ return (
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        margin: 15,
+        backgroundColor:'hsl(303, 56%, 83%)',
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight: 0,
+        
         
     },
     search: { 
