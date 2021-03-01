@@ -12,7 +12,7 @@ const apiURL = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${a
 export default function EventsScreen() {
     const dispatch = useDispatch()
     const events = useSelector(state => state.events) //state.events is from root reducers
-    const [searchValue, setSearchTerm] =  useState('') //
+    const [searchValue, setSearchValue] =  useState('') //
 
 
     useEffect(() => {
@@ -36,6 +36,7 @@ export default function EventsScreen() {
     }, []) //Runs ONCE after initial rendering
             
     const showEvents = () => events.map((event, i) => {
+        console.log(event)
         return <EventCard 
                 // style={styles.card}
                     key={event.id}
@@ -47,29 +48,36 @@ export default function EventsScreen() {
 
 
     const handleSearchText = (text) => { //usually would be event and event.target.value
-        setSearchTerm(text)
+        setSearchValue(text)
     }
     
     const handleSearch = () => {
         const newSearchValue = searchValue.toLowerCase();
         const updatedURL = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&city=${newSearchValue}`;
-
+        console.log(newSearchValue, updatedURL)
         fetch(updatedURL, {
             headers: {
                 "apikey": `${apiKey}`
             }
         })
-        .then(response => response.json())
-        
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Something went wrong');
+            }
+            })
         .then(({_embedded}) => _embedded) 
-        .catch()
+        .catch((error) => {
+            console.log(error)
+        })
         .then(({events}) => {
             const newSearchEvents = [];
             events.forEach((event) => {
                 if (!newSearchEvents.find(item => item.name === event.name)){
                     newSearchEvents.push(event)
                 }
-                console.log(newSearchEvents)
+                
             })
             dispatch({type: 'SET_EVENTS', events: newSearchEvents})
         })

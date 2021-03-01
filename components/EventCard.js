@@ -28,7 +28,7 @@ export default function EventCard({event, index}) {
     
 
     const showAtractions = (event) => {
-        console.log(event.url)
+        console.log(event)
         const attractions = event._embedded.attractions.map(attraction => {
             return <Text key={attraction.name} style={styles.attraction}>🌟{attraction.name}</Text>
         })

@@ -12,6 +12,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
+
 const Stack = createStackNavigator();
 
 export default function App() {
